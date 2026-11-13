@@ -10,6 +10,8 @@
 
 namespace {
 
+constexpr float ui_scale = 2.0f;
+
 class TriangleRenderer {
 public:
     TriangleRenderer() = default;
@@ -186,6 +188,11 @@ int main() {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGui::StyleColorsDark();
+    ImGui::GetStyle().ScaleAllSizes(ui_scale);
+    ImGuiIO& imgui_io = ImGui::GetIO();
+    ImFontConfig font_config;
+    font_config.SizePixels = 13.0f * ui_scale;
+    imgui_io.Fonts->AddFontDefault(&font_config);
 
     if (!ImGui_ImplGlfw_InitForOpenGL(window.get(), true)) {
         std::fprintf(stderr, "Failed to initialize the ImGui GLFW backend.\n");
